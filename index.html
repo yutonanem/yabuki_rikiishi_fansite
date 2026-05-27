@@ -2,39 +2,34 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>YABUKI × RIKIISHI ─ 矢吹・力石兄弟ボクサー後援会公式サイト</title>
-<meta name="description" content="世界級ボクサー矢吹正道・力石政法兄弟の後援会公式サイト。プロフィール、戦績、試合情報、後援会入会、グッズ販売など。">
+<meta name="description" content="矢吹正道・力石政法兄弟の後援会公式サイト。プロフィール、試合情報、後援会入会など。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Oswald:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 /* ========================================
-   RESET & BASE
+   RESET & BASE — Mobile-First
    ======================================== */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  /* Dark colors (hero, footer, accents) */
   --black:#0a0a0a;
   --black-light:#111111;
   --black-mid:#1a1a1a;
   --black-surface:#1c1c1c;
-  /* Light colors (main body) */
   --bg-white:#fafafa;
   --bg-off:#f5f0eb;
   --bg-gray:#f0ede8;
   --bg-card:#ffffff;
-  /* Text on light */
   --text-primary:#1a1a1a;
   --text-secondary:#555555;
   --text-tertiary:#888888;
   --border-light:rgba(0,0,0,.08);
-  /* Accent */
   --red:#d4001a;
   --red-bright:#ff1a1a;
   --red-dark:#8b0000;
   --red-glow:rgba(212,0,26,.3);
-  /* Legacy (for hero/dark sections) */
   --white:#f5f0eb;
   --gold:#c9a84c;
   --font-display:'Bebas Neue',sans-serif;
@@ -42,22 +37,39 @@
   --font-body:'Noto Sans JP',sans-serif;
   --ease-out-expo:cubic-bezier(.16,1,.3,1);
   --ease-out-quart:cubic-bezier(.25,1,.5,1);
+  /* Fluid spacing scale */
+  --space-xs:clamp(.5rem,1vw,.75rem);
+  --space-s:clamp(.75rem,1.5vw,1rem);
+  --space-m:clamp(1rem,2.5vw,1.5rem);
+  --space-l:clamp(1.5rem,4vw,2.5rem);
+  --space-xl:clamp(2rem,5vw,4rem);
+  --space-2xl:clamp(3rem,8vw,6rem);
+  --space-3xl:clamp(4rem,10vw,8rem);
+  /* Fluid type scale */
+  --text-xs:clamp(.6rem,.55rem + .2vw,.7rem);
+  --text-sm:clamp(.72rem,.65rem + .3vw,.82rem);
+  --text-base:clamp(.8rem,.72rem + .35vw,.95rem);
+  --text-md:clamp(.85rem,.78rem + .4vw,1rem);
+  --text-lg:clamp(1rem,.9rem + .5vw,1.2rem);
+  /* Container */
+  --container-pad:clamp(1.25rem,5vw,3rem);
 }
-html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden}
+html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
 body{
   font-family:var(--font-body);
+  font-size:var(--text-base);
   background:var(--bg-white);
   color:var(--text-primary);
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
+  line-height:1.8;
 }
-a{color:inherit;text-decoration:none}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 ul{list-style:none}
-img{max-width:100%;display:block}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{max-width:100%;height:auto;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
 
-/* Global noise overlay - subtle on light */
 body::after{
   content:'';position:fixed;inset:0;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
@@ -68,7 +80,7 @@ body::after{
 }
 
 /* ========================================
-   LOADING SCREEN (stays dark)
+   LOADING SCREEN
    ======================================== */
 .loader{
   position:fixed;inset:0;z-index:10000;
@@ -77,17 +89,17 @@ body::after{
   transition:opacity .8s var(--ease-out-expo),visibility .8s;
 }
 .loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.loader-inner{text-align:center}
+.loader-inner{text-align:center;padding:0 1.5rem}
 .loader-text{
   font-family:var(--font-display);
-  font-size:clamp(2rem,6vw,4rem);
-  letter-spacing:.3em;
+  font-size:clamp(1.8rem,5vw,4rem);
+  letter-spacing:clamp(.15em,2vw,.3em);
   color:var(--white);
   animation:loaderPulse 1.2s ease-in-out infinite;
 }
 .loader-text .x{color:var(--red)}
 .loader-bar{
-  width:200px;height:2px;background:#222;margin:1.5rem auto 0;
+  width:min(200px,60vw);height:2px;background:#222;margin:1.5rem auto 0;
   position:relative;overflow:hidden;
 }
 .loader-bar::after{
@@ -99,35 +111,36 @@ body::after{
 @keyframes loaderSlide{0%{left:-50%}100%{left:100%}}
 
 /* ========================================
-   NAVIGATION (dark on hero, white when scrolled)
+   NAVIGATION — Mobile-First
    ======================================== */
 .nav{
   position:fixed;top:0;left:0;width:100%;z-index:1000;
-  padding:1.4rem 3rem;
+  padding:clamp(.8rem,1.5vw,1.4rem) var(--container-pad);
   display:flex;align-items:center;justify-content:space-between;
   transition:all .4s var(--ease-out-expo);
 }
 .nav-logo{
   font-family:var(--font-display);
-  font-size:1.5rem;
+  font-size:clamp(1.1rem,2vw,1.5rem);
   letter-spacing:.15em;
   color:#fff;
   transition:color .4s;
 }
 .nav-logo span{color:var(--red)}
-.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links{display:none;gap:clamp(1rem,2vw,2rem);align-items:center}
 .nav-links a{
   font-family:var(--font-heading);
-  font-size:.8rem;
+  font-size:var(--text-xs);
   font-weight:500;
   letter-spacing:.12em;
   text-transform:uppercase;
   color:rgba(255,255,255,.5);
   transition:color .3s;
   position:relative;
+  padding:.5rem 0;
 }
 .nav-links a::after{
-  content:'';position:absolute;left:0;bottom:-4px;
+  content:'';position:absolute;left:0;bottom:0;
   width:0;height:1px;background:var(--red);
   transition:width .4s var(--ease-out-expo);
 }
@@ -135,12 +148,11 @@ body::after{
 .nav-links a:hover::after{width:100%}
 .nav-links a.active{color:var(--red)}
 
-/* Scrolled state: white background */
 .nav.scrolled{
   background:rgba(255,255,255,.95);
   backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);
-  padding:.8rem 3rem;
+  padding:clamp(.5rem,1vw,.8rem) var(--container-pad);
   border-bottom:1px solid var(--border-light);
   box-shadow:0 1px 20px rgba(0,0,0,.06);
 }
@@ -151,44 +163,52 @@ body::after{
 .nav.scrolled .nav-burger span{background:var(--text-primary)}
 
 .nav-burger{
-  display:none;flex-direction:column;gap:5px;
-  width:28px;cursor:pointer;z-index:1001;
+  display:flex;flex-direction:column;gap:5px;
+  width:44px;height:44px;cursor:pointer;z-index:1001;
+  align-items:center;justify-content:center;
 }
 .nav-burger span{
-  display:block;width:100%;height:2px;
+  display:block;width:24px;height:2px;
   background:#fff;transition:all .3s;
 }
-.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(4px,5px)}
 .nav-burger.open span:nth-child(2){opacity:0}
-.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-5px)}
 
 .mobile-menu{
-  display:none;position:fixed;inset:0;z-index:999;
+  display:flex;position:fixed;inset:0;z-index:999;
   background:rgba(10,10,10,.98);
-  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(1.2rem,3vw,2rem);
   opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 .mobile-menu.open{opacity:1;visibility:visible}
 .mobile-menu a{
   font-family:var(--font-heading);
-  font-size:1.6rem;
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
   letter-spacing:.15em;
   text-transform:uppercase;
   color:rgba(255,255,255,.5);
   transition:color .3s;
+  padding:.6rem 1rem;
+  min-height:48px;
+  display:flex;align-items:center;
 }
-.mobile-menu a:hover{color:var(--red)}
+.mobile-menu a:hover,
+.mobile-menu a:active{color:var(--red)}
 
 /* ========================================
-   HERO SECTION (stays dark)
+   HERO SECTION — Mobile-First
    ======================================== */
 .hero{
   position:relative;
-  min-height:100vh;
+  min-height:100svh;
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
   background:var(--black);
   color:#fff;
+  padding:env(safe-area-inset-top) 0 0;
 }
 .hero-bg{
   position:absolute;inset:0;
@@ -213,10 +233,11 @@ body::after{
   position:absolute;top:0;width:1px;height:100%;
   background:linear-gradient(180deg,transparent,rgba(212,0,26,.12) 50%,transparent);
 }
-.hero-line-left{left:15%}
-.hero-line-right{right:15%}
+.hero-line-left{left:8%}
+.hero-line-right{right:8%}
 
 .hero-vertical{
+  display:none;
   position:absolute;
   writing-mode:vertical-rl;
   font-family:var(--font-body);
@@ -231,25 +252,27 @@ body::after{
 .hero-content{
   position:relative;z-index:2;
   text-align:center;
-  padding:0 2rem;
+  padding:0 clamp(1rem,4vw,2rem);
+  max-width:100%;
 }
 .hero-overtitle{
   font-family:var(--font-heading);
-  font-size:clamp(.65rem,1.2vw,.85rem);
-  letter-spacing:.5em;
+  font-size:clamp(.55rem,1vw,.85rem);
+  letter-spacing:clamp(.2em,2vw,.5em);
   text-transform:uppercase;
   color:rgba(255,255,255,.4);
-  margin-bottom:1.5rem;
+  margin-bottom:clamp(.8rem,2vw,1.5rem);
   opacity:0;transform:translateY(20px);
   animation:fadeUp .8s .6s var(--ease-out-expo) forwards;
 }
 .hero-title{
   font-family:var(--font-display);
-  font-size:clamp(3.5rem,13vw,11rem);
+  font-size:clamp(2.8rem,11vw,11rem);
   line-height:.85;
-  letter-spacing:.06em;
+  letter-spacing:clamp(.01em,1vw,.06em);
   color:#fff;
   position:relative;
+  word-break:keep-all;
 }
 .hero-title .char{
   display:inline-block;
@@ -260,33 +283,26 @@ body::after{
 }
 .hero-title .cross{
   color:var(--red);
-  margin:0 .08em;
+  margin:0 .04em;
   text-shadow:0 0 60px var(--red-glow),0 0 120px rgba(212,0,26,.15);
 }
-.hero-subtitle{
-  font-family:var(--font-heading);
-  font-size:clamp(.7rem,1.4vw,1rem);
-  letter-spacing:.35em;
-  color:rgba(255,255,255,.35);
-  margin-top:2rem;
-  opacity:0;transform:translateY(20px);
-  animation:fadeUp .8s 1.6s var(--ease-out-expo) forwards;
-}
 .hero-accent-line{
-  width:60px;height:2px;
+  width:clamp(40px,8vw,60px);height:2px;
   background:var(--red);
-  margin:1.5rem auto 0;
+  margin:clamp(1rem,3vw,2rem) auto 0;
   transform-origin:center;
   transform:scaleX(0);
-  animation:lineReveal .6s 1.8s var(--ease-out-expo) forwards;
+  animation:lineReveal .6s 1.6s var(--ease-out-expo) forwards;
 }
 .hero-cta-group{
-  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-  margin-top:2.5rem;
+  display:flex;gap:clamp(.6rem,1.5vw,1rem);
+  justify-content:center;flex-wrap:wrap;
+  flex-direction:column;align-items:center;
+  margin-top:clamp(1.5rem,3vw,2.5rem);
   opacity:0;transform:translateY(20px);
-  animation:fadeUp .8s 2s var(--ease-out-expo) forwards;
+  animation:fadeUp .8s 1.8s var(--ease-out-expo) forwards;
+  padding:0 1rem;
 }
-/* Hero buttons stay light-on-dark */
 .hero .btn{
   border-color:rgba(255,255,255,.15);
   color:#fff;
@@ -295,9 +311,9 @@ body::after{
 .hero .btn-primary{color:#fff}
 .hero .btn-primary:hover{color:var(--black)}
 .hero-scroll{
-  position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);
+  position:absolute;bottom:clamp(1.5rem,3vw,3rem);left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:.5rem;
-  opacity:0;animation:fadeUp .8s 2.4s var(--ease-out-expo) forwards;
+  opacity:0;animation:fadeUp .8s 2s var(--ease-out-expo) forwards;
 }
 .hero-scroll span{
   font-family:var(--font-heading);
@@ -305,7 +321,7 @@ body::after{
   text-transform:uppercase;color:rgba(255,255,255,.3);
 }
 .hero-scroll-line{
-  width:1px;height:40px;
+  width:1px;height:clamp(25px,4vw,40px);
   background:linear-gradient(180deg,var(--red),transparent);
   animation:scrollLine 2s ease-in-out infinite;
 }
@@ -324,19 +340,22 @@ body::after{
 @keyframes lineReveal{to{transform:scaleX(1)}}
 
 /* ========================================
-   BUTTONS (light theme default)
+   BUTTONS — Touch-optimized (min 48px)
    ======================================== */
 .btn{
-  display:inline-flex;align-items:center;gap:.6rem;
-  padding:1rem 2.4rem;
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:clamp(.85rem,1.5vw,1rem) clamp(1.6rem,3vw,2.4rem);
+  min-height:48px;
   font-family:var(--font-heading);
-  font-size:.8rem;font-weight:500;
+  font-size:clamp(.7rem,.65rem + .2vw,.8rem);
+  font-weight:500;
   letter-spacing:.15em;text-transform:uppercase;
   border:1px solid var(--text-primary);
   color:var(--text-primary);
   position:relative;overflow:hidden;
   clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%);
   transition:all .4s var(--ease-out-expo);
+  white-space:nowrap;
 }
 .btn::before{
   content:'';position:absolute;inset:0;
@@ -347,6 +366,7 @@ body::after{
 }
 .btn:hover{border-color:var(--black);color:#fff}
 .btn:hover::before{transform:translateX(0)}
+.btn:active{transform:scale(.97)}
 .btn-primary{
   background:var(--red);border-color:var(--red);
   color:#fff;
@@ -358,23 +378,28 @@ body::after{
 .btn:hover .btn-arrow{transform:translateX(4px)}
 
 /* ========================================
-   SECTION COMMONS
+   SECTION COMMONS — Mobile-First
    ======================================== */
 section{position:relative}
-.section-padding{padding:clamp(5rem,10vw,10rem) 0}
+.section-padding{padding:var(--space-3xl) 0}
 .container{
-  width:90%;max-width:1280px;margin:0 auto;
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  padding-left:var(--container-pad);
+  padding-right:var(--container-pad);
 }
 .section-label{
   font-family:var(--font-heading);
-  font-size:.65rem;font-weight:500;
+  font-size:var(--text-xs);
+  font-weight:500;
   letter-spacing:.4em;text-transform:uppercase;
   color:var(--red);
-  margin-bottom:1rem;
+  margin-bottom:var(--space-s);
 }
 .section-title{
   font-family:var(--font-display);
-  font-size:clamp(2.5rem,7vw,5rem);
+  font-size:clamp(2.2rem,6vw,5rem);
   letter-spacing:.04em;
   line-height:.95;
   color:var(--text-primary);
@@ -382,18 +407,17 @@ section{position:relative}
 .section-divider{
   width:50px;height:2px;
   background:var(--red);
-  margin:1.5rem 0;
+  margin:var(--space-m) 0;
   transform-origin:left;
 }
 
-/* Reveal animation */
 .reveal{
-  opacity:0;transform:translateY(40px);
+  opacity:0;transform:translateY(30px);
   transition:opacity .8s var(--ease-out-expo),transform .8s var(--ease-out-expo);
 }
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-left{
-  opacity:0;transform:translateX(-50px);
+  opacity:0;transform:translateX(-30px);
   transition:opacity .8s var(--ease-out-expo),transform .8s var(--ease-out-expo);
 }
 .reveal-left.visible{opacity:1;transform:translateX(0)}
@@ -416,23 +440,23 @@ section{position:relative}
 }
 
 /* ========================================
-   MARQUEE (dark strip transition from hero)
+   MARQUEE
    ======================================== */
 .marquee{
   overflow:hidden;
-  padding:1.2rem 0;
+  padding:clamp(.8rem,1.2vw,1.2rem) 0;
   background:var(--black);
   border-bottom:none;
 }
 .marquee-track{
   display:flex;
-  gap:3rem;
+  gap:clamp(1.5rem,3vw,3rem);
   animation:marqueeScroll 30s linear infinite;
   white-space:nowrap;
 }
 .marquee-item{
   font-family:var(--font-display);
-  font-size:clamp(1rem,2vw,1.4rem);
+  font-size:clamp(.8rem,1.5vw,1.4rem);
   letter-spacing:.2em;
   color:rgba(255,255,255,.06);
   flex-shrink:0;
@@ -441,43 +465,7 @@ section{position:relative}
 @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ========================================
-   STATS STRIP (red — stays bold)
-   ======================================== */
-.stat-strip{
-  background:linear-gradient(135deg,var(--red-dark),var(--red));
-  padding:3rem 0;
-  position:relative;
-  overflow:hidden;
-}
-.stat-strip::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,transparent 48%,rgba(255,255,255,.04) 48.5%,transparent 49%);
-}
-.stat-grid{
-  display:flex;
-  justify-content:center;
-  gap:clamp(2rem,5vw,5rem);
-  flex-wrap:wrap;
-  position:relative;z-index:1;
-}
-.stat-item{text-align:center}
-.stat-num{
-  font-family:var(--font-display);
-  font-size:clamp(2.2rem,4.5vw,3.8rem);
-  line-height:1;
-  color:#fff;
-}
-.stat-label{
-  font-family:var(--font-heading);
-  font-size:.6rem;
-  letter-spacing:.25em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.6);
-  margin-top:.5rem;
-}
-
-/* ========================================
-   FIGHTERS SECTION — white bg
+   FIGHTERS SECTION — Mobile-First (1col)
    ======================================== */
 .fighters{
   background:var(--bg-white);
@@ -488,12 +476,13 @@ section{position:relative}
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
   font-family:var(--font-display);
-  font-size:clamp(8rem,18vw,14rem);
+  font-size:clamp(6rem,15vw,14rem);
   color:rgba(0,0,0,.025);
   pointer-events:none;
   z-index:1;
 }
 .fighters-center-line{
+  display:none;
   position:absolute;top:0;left:50%;width:3px;height:100%;
   background:linear-gradient(180deg,transparent 5%,var(--red) 30%,var(--red) 70%,transparent 95%);
   opacity:.1;
@@ -502,13 +491,13 @@ section{position:relative}
 }
 .fighters-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr;
   min-height:auto;
   position:relative;z-index:2;
 }
 .fighter-card{
   position:relative;
-  padding:clamp(3rem,5vw,5rem) clamp(2rem,4vw,4rem);
+  padding:var(--space-xl) var(--container-pad);
   display:flex;flex-direction:column;
   justify-content:flex-start;
   overflow:hidden;
@@ -522,7 +511,7 @@ section{position:relative}
 }
 .fighter-card:hover::after{opacity:1}
 .fighter-card:first-child{
-  border-right:1px solid var(--border-light);
+  border-bottom:1px solid var(--border-light);
 }
 .fighter-card::before{
   content:'';position:absolute;
@@ -534,15 +523,15 @@ section{position:relative}
 
 .fighter-number{
   font-family:var(--font-display);
-  font-size:clamp(5rem,10vw,9rem);
+  font-size:clamp(4rem,8vw,9rem);
   line-height:1;
   color:rgba(0,0,0,.03);
-  position:absolute;top:1.5rem;right:1.5rem;
+  position:absolute;top:1rem;right:1rem;
   pointer-events:none;
 }
 .fighter-name-en{
   font-family:var(--font-display);
-  font-size:clamp(2rem,4vw,3.5rem);
+  font-size:clamp(1.8rem,4vw,3.5rem);
   letter-spacing:.06em;
   line-height:1;
   margin-bottom:.3rem;
@@ -550,67 +539,45 @@ section{position:relative}
 }
 .fighter-name-ja{
   font-family:var(--font-body);
-  font-size:clamp(.8rem,1.1vw,.95rem);
+  font-size:clamp(.78rem,1vw,.95rem);
   font-weight:300;
   letter-spacing:.25em;
   color:var(--text-secondary);
-  margin-bottom:1.5rem;
+  margin-bottom:var(--space-m);
 }
 .fighter-info{
   display:flex;flex-direction:column;gap:.5rem;
-  margin-bottom:2rem;
+  margin-bottom:var(--space-l);
 }
 .fighter-info-item{
   display:flex;align-items:center;gap:.8rem;
-  font-size:.82rem;
+  font-size:var(--text-sm);
   color:var(--text-secondary);
 }
 .fighter-info-label{
   font-family:var(--font-heading);
-  font-size:.6rem;
+  font-size:var(--text-xs);
   letter-spacing:.15em;
   text-transform:uppercase;
   color:var(--red);
-  min-width:80px;
-}
-.fighter-record{
-  display:flex;gap:1.5rem;
-  margin:1.5rem 0 2rem;
-  padding:1.5rem 0;
-  border-top:1px solid var(--border-light);
-  border-bottom:1px solid var(--border-light);
-}
-.record-item{text-align:center}
-.record-num{
-  font-family:var(--font-display);
-  font-size:2.5rem;
-  line-height:1;
-  color:var(--text-primary);
-}
-.record-num.ko{color:var(--red)}
-.record-num.losses{color:var(--text-tertiary)}
-.record-label{
-  font-family:var(--font-heading);
-  font-size:.55rem;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:var(--text-tertiary);
-  margin-top:.3rem;
+  min-width:70px;
+  flex-shrink:0;
 }
 
 .fighter-avatar{
   width:100%;
+  max-width:400px;
   aspect-ratio:3/4;
   background:linear-gradient(145deg,#e8e4df,#d8d4cf);
   border:1px solid var(--border-light);
-  margin-bottom:2rem;
+  margin-bottom:var(--space-l);
   position:relative;
   overflow:hidden;
   display:flex;align-items:center;justify-content:center;
 }
 .fighter-avatar-placeholder{
   font-family:var(--font-display);
-  font-size:clamp(3rem,7vw,6rem);
+  font-size:clamp(2.5rem,6vw,6rem);
   color:rgba(0,0,0,.04);
   letter-spacing:.15em;
 }
@@ -623,164 +590,10 @@ section{position:relative}
 }
 
 /* ========================================
-   NEXT FIGHT SECTION — dark (contrast block)
-   ======================================== */
-.next-fight{
-  background:var(--black);
-  color:#fff;
-  position:relative;
-  overflow:hidden;
-}
-.next-fight::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at center,rgba(212,0,26,.06),transparent 70%);
-  pointer-events:none;
-}
-.next-fight-inner{
-  text-align:center;
-  position:relative;z-index:1;
-}
-.next-fight-label{
-  font-family:var(--font-heading);
-  font-size:.65rem;
-  letter-spacing:.5em;
-  text-transform:uppercase;
-  color:var(--red);
-  margin-bottom:.5rem;
-}
-.next-fight-live{
-  display:inline-block;
-  padding:.2rem .8rem;
-  font-family:var(--font-heading);
-  font-size:.55rem;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  border:1px solid var(--red);
-  color:var(--red);
-  margin-bottom:1.5rem;
-  animation:pulseGlow 2s ease-in-out infinite;
-}
-@keyframes pulseGlow{
-  0%,100%{box-shadow:0 0 5px rgba(212,0,26,.2)}
-  50%{box-shadow:0 0 20px rgba(212,0,26,.4),0 0 40px rgba(212,0,26,.15)}
-}
-.next-fight-title{
-  font-family:var(--font-display);
-  font-size:clamp(1.5rem,4vw,3rem);
-  letter-spacing:.08em;
-  margin-bottom:.5rem;
-  color:#fff;
-}
-.next-fight-title .vs{color:var(--red);margin:0 .3em}
-.next-fight-meta{
-  font-family:var(--font-heading);
-  font-size:.75rem;
-  letter-spacing:.15em;
-  color:rgba(255,255,255,.5);
-  margin-bottom:2rem;
-}
-.next-fight-countdown{
-  display:flex;gap:2rem;justify-content:center;
-  margin-bottom:2.5rem;
-}
-.countdown-item{text-align:center}
-.countdown-num{
-  font-family:var(--font-display);
-  font-size:clamp(2rem,4vw,3rem);
-  line-height:1;
-  color:#fff;
-}
-.countdown-label{
-  font-family:var(--font-heading);
-  font-size:.55rem;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.35);
-  margin-top:.3rem;
-}
-/* Buttons inside dark sections */
-.next-fight .btn{border-color:rgba(255,255,255,.15);color:#fff}
-.next-fight .btn:hover{border-color:var(--red);color:#fff}
-.next-fight .btn-primary{color:#fff}
-.next-fight .btn-primary:hover{color:var(--black)}
-
-/* ========================================
-   NEWS SECTION — off-white bg
-   ======================================== */
-.news{
-  background:var(--bg-off);
-  position:relative;
-}
-.news .container{position:relative;z-index:1}
-.news-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.5rem;
-  margin-top:3rem;
-}
-.news-card{
-  background:var(--bg-card);
-  border:1px solid var(--border-light);
-  padding:2rem;
-  transition:all .4s var(--ease-out-expo);
-  position:relative;
-  overflow:hidden;
-}
-.news-card::before{
-  content:'';position:absolute;top:0;left:0;
-  width:100%;height:2px;
-  background:var(--red);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .4s var(--ease-out-expo);
-}
-.news-card:hover{
-  border-color:rgba(212,0,26,.15);
-  transform:translateY(-6px);
-  box-shadow:0 20px 50px rgba(0,0,0,.08);
-}
-.news-card:hover::before{transform:scaleX(1)}
-.news-date{
-  font-family:var(--font-heading);
-  font-size:.65rem;
-  letter-spacing:.15em;
-  color:var(--red);
-  margin-bottom:.6rem;
-}
-.news-tag{
-  display:inline-block;
-  font-family:var(--font-heading);
-  font-size:.55rem;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  padding:.2rem .5rem;
-  border:1px solid var(--border-light);
-  color:var(--text-tertiary);
-  margin-bottom:.8rem;
-  margin-left:.5rem;
-}
-.news-card-title{
-  font-family:var(--font-body);
-  font-size:.95rem;
-  font-weight:500;
-  line-height:1.7;
-  margin-bottom:.8rem;
-  color:var(--text-primary);
-}
-.news-card-excerpt{
-  font-size:.78rem;
-  line-height:1.9;
-  color:var(--text-secondary);
-}
-.news-more{
-  display:flex;justify-content:center;
-  margin-top:3rem;
-}
-
-/* ========================================
-   FAN CLUB SECTION — white bg
+   FAN CLUB SECTION — Mobile-First
    ======================================== */
 .fanclub{
-  background:var(--bg-white);
+  background:var(--bg-off);
   position:relative;
   overflow:hidden;
 }
@@ -788,7 +601,7 @@ section{position:relative}
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
   font-family:var(--font-display);
-  font-size:clamp(5rem,20vw,18rem);
+  font-size:clamp(4rem,18vw,18rem);
   letter-spacing:.15em;
   color:rgba(212,0,26,.03);
   white-space:nowrap;
@@ -800,22 +613,10 @@ section{position:relative}
   max-width:860px;
   margin:0 auto;
 }
-.fanclub-desc{
-  font-size:.9rem;
-  line-height:2.1;
-  color:var(--text-secondary);
-  margin:2rem 0 3rem;
-}
-.fanclub-tiers{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1.5rem;
-  margin-bottom:3rem;
-}
 .tier-card{
   background:var(--bg-card);
   border:1px solid var(--border-light);
-  padding:2.5rem 2rem;
+  padding:clamp(1.8rem,3vw,2.5rem) clamp(1.2rem,2.5vw,2rem);
   text-align:center;
   transition:all .4s var(--ease-out-expo);
   position:relative;
@@ -825,119 +626,28 @@ section{position:relative}
   box-shadow:0 10px 40px rgba(0,0,0,.06);
   transform:translateY(-4px);
 }
-.tier-card.featured{
-  border-color:var(--red);
-}
-.tier-card.featured::before{
-  content:'RECOMMENDED';
-  position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-50%);
-  font-family:var(--font-heading);font-size:.55rem;
-  letter-spacing:.15em;
-  background:var(--red);color:#fff;
-  padding:.25rem .8rem;
-}
 .tier-name{
   font-family:var(--font-display);
-  font-size:1.8rem;
+  font-size:clamp(1.4rem,2.5vw,1.8rem);
   letter-spacing:.1em;
   margin-bottom:.5rem;
   color:var(--text-primary);
 }
 .tier-price{
   font-family:var(--font-heading);
-  font-size:.75rem;
+  font-size:var(--text-sm);
   letter-spacing:.1em;
   color:var(--text-tertiary);
-  margin-bottom:1.5rem;
+  margin-bottom:var(--space-m);
 }
 .tier-price strong{
-  font-size:1.8rem;
+  font-size:clamp(1.4rem,2.5vw,1.8rem);
   color:var(--text-primary);
   font-weight:600;
 }
-.tier-benefits{
-  text-align:left;
-  margin-bottom:2rem;
-}
-.tier-benefits li{
-  font-size:.78rem;
-  line-height:2;
-  color:var(--text-secondary);
-  padding-left:1.2rem;
-  position:relative;
-}
-.tier-benefits li::before{
-  content:'';position:absolute;
-  left:0;top:.65rem;
-  width:5px;height:5px;
-  background:var(--red);
-}
 
 /* ========================================
-   GOODS SECTION — off-white bg
-   ======================================== */
-.goods{
-  background:var(--bg-off);
-  position:relative;
-}
-.goods-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:1.5rem;
-  margin-top:3rem;
-}
-.goods-card{
-  background:var(--bg-card);
-  border:1px solid var(--border-light);
-  overflow:hidden;
-  transition:all .4s var(--ease-out-expo);
-}
-.goods-card:hover{
-  border-color:rgba(212,0,26,.15);
-  transform:translateY(-6px);
-  box-shadow:0 20px 50px rgba(0,0,0,.08);
-}
-.goods-img{
-  aspect-ratio:1;
-  background:linear-gradient(145deg,#e8e4df,#ddd8d2);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-.goods-img-text{
-  font-family:var(--font-display);
-  font-size:2rem;
-  color:rgba(0,0,0,.06);
-  letter-spacing:.15em;
-}
-.goods-img::after{
-  content:'VIEW';
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-heading);
-  font-size:.75rem;letter-spacing:.3em;
-  background:rgba(212,0,26,.88);
-  color:#fff;
-  opacity:0;transition:opacity .3s;
-}
-.goods-card:hover .goods-img::after{opacity:1}
-.goods-info{padding:1.2rem}
-.goods-name{
-  font-size:.82rem;
-  font-weight:500;
-  margin-bottom:.4rem;
-  line-height:1.5;
-  color:var(--text-primary);
-}
-.goods-price{
-  font-family:var(--font-heading);
-  font-size:.75rem;
-  color:var(--red);
-  letter-spacing:.05em;
-}
-
-/* ========================================
-   MESSAGE SECTION — white bg
+   MESSAGE SECTION — Mobile-First
    ======================================== */
 .message{
   background:var(--bg-white);
@@ -945,15 +655,13 @@ section{position:relative}
   border-bottom:1px solid var(--border-light);
 }
 .message-inner{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:4rem;
-  align-items:start;
+  max-width:640px;
+  margin:var(--space-l) auto 0;
 }
-.message-form{display:flex;flex-direction:column;gap:1rem}
+.message-form{display:flex;flex-direction:column;gap:var(--space-s);text-align:left}
 .message-form label{
   font-family:var(--font-heading);
-  font-size:.65rem;
+  font-size:var(--text-xs);
   letter-spacing:.15em;
   text-transform:uppercase;
   color:var(--text-tertiary);
@@ -962,12 +670,15 @@ section{position:relative}
 .message-form textarea,
 .message-form select{
   width:100%;
-  padding:.8rem 1rem;
+  padding:clamp(.7rem,1.2vw,.8rem) 1rem;
+  min-height:48px;
   background:var(--bg-card);
   border:1px solid var(--border-light);
+  border-radius:0;
+  -webkit-appearance:none;
   color:var(--text-primary);
   font-family:var(--font-body);
-  font-size:.85rem;
+  font-size:max(.85rem,16px);
   transition:border-color .3s;
   outline:none;
 }
@@ -980,48 +691,24 @@ section{position:relative}
 .message-form textarea{resize:vertical;min-height:120px}
 .message-form select option{background:var(--bg-card);color:var(--text-primary)}
 
-.messages-list{display:flex;flex-direction:column;gap:.8rem}
-.msg-item{
-  padding:1.2rem;
-  background:var(--bg-off);
-  border-left:2px solid var(--red);
-  transition:all .3s;
-}
-.msg-item:hover{
-  background:rgba(212,0,26,.03);
-}
-.msg-author{
-  font-family:var(--font-heading);
-  font-size:.7rem;
-  letter-spacing:.1em;
-  color:var(--red);
-  margin-bottom:.3rem;
-}
-.msg-text{
-  font-size:.82rem;
-  line-height:1.8;
-  color:var(--text-secondary);
-}
 
 /* ========================================
-   SPONSORS SECTION — off-white bg
+   SPONSORS SECTION — Mobile-First
    ======================================== */
 .sponsors{background:var(--bg-off)}
 .sponsors-logos{
-  display:flex;
-  flex-wrap:wrap;
-  gap:1.5rem;
-  justify-content:center;
-  align-items:center;
-  margin-top:3rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(130px,100%),1fr));
+  gap:var(--space-s);
+  margin-top:var(--space-l);
 }
 .sponsor-logo{
-  width:150px;height:70px;
+  height:clamp(55px,8vw,70px);
   background:var(--bg-card);
   border:1px solid var(--border-light);
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-heading);
-  font-size:.65rem;
+  font-size:var(--text-xs);
   letter-spacing:.15em;
   color:var(--text-tertiary);
   text-transform:uppercase;
@@ -1033,119 +720,167 @@ section{position:relative}
 }
 .sponsors-cta{
   text-align:center;
-  margin-top:3rem;
+  margin-top:var(--space-l);
 }
 .sponsors-cta p{
-  font-size:.82rem;
+  font-size:var(--text-sm);
   line-height:1.8;
   color:var(--text-secondary);
-  margin-bottom:1.5rem;
+  margin-bottom:var(--space-m);
+  max-width:65ch;
+  margin-left:auto;margin-right:auto;
 }
 
 /* ========================================
-   FOOTER (stays dark)
+   FOOTER — Mobile-First
    ======================================== */
 .footer{
   background:var(--black);
   color:#fff;
   border-top:none;
-  padding:4rem 0 2rem;
+  padding:var(--space-xl) 0 var(--space-l);
 }
 .footer-top{
   display:grid;
-  grid-template-columns:1.2fr 1fr 1fr;
-  gap:3rem;
-  margin-bottom:3rem;
+  grid-template-columns:1fr;
+  gap:var(--space-l);
+  margin-bottom:var(--space-l);
 }
 .footer-brand{
   font-family:var(--font-display);
-  font-size:1.8rem;
+  font-size:clamp(1.4rem,2.5vw,1.8rem);
   letter-spacing:.1em;
-  margin-bottom:1rem;
+  margin-bottom:var(--space-s);
   color:#fff;
 }
 .footer-brand span{color:var(--red)}
 .footer-desc{
-  font-size:.78rem;
+  font-size:var(--text-sm);
   line-height:1.9;
   color:rgba(255,255,255,.5);
 }
 .footer-heading{
   font-family:var(--font-heading);
-  font-size:.7rem;
+  font-size:var(--text-xs);
   letter-spacing:.2em;
   text-transform:uppercase;
   color:#fff;
-  margin-bottom:1.2rem;
+  margin-bottom:var(--space-s);
 }
 .footer-links li{margin-bottom:.5rem}
 .footer-links a{
-  font-size:.78rem;
+  font-size:var(--text-sm);
   color:rgba(255,255,255,.5);
   transition:color .3s;
+  display:inline-block;
+  padding:.25rem 0;
+  min-height:44px;
+  display:flex;align-items:center;
 }
 .footer-links a:hover{color:var(--red)}
+.footer-links li:not(:has(a)){
+  font-size:var(--text-sm);
+  color:rgba(255,255,255,.35);
+  padding:.25rem 0;
+}
 .footer-bottom{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding-top:2rem;
+  flex-direction:column;
+  gap:.8rem;
+  text-align:center;
+  padding-top:var(--space-l);
   border-top:1px solid rgba(255,255,255,.08);
-  font-size:.65rem;
+  font-size:var(--text-xs);
   color:rgba(255,255,255,.25);
-}
-.footer-social{display:flex;gap:.8rem}
-.footer-social a{
-  width:34px;height:34px;
-  border:1px solid rgba(255,255,255,.12);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-heading);
-  font-size:.55rem;
-  letter-spacing:.05em;
-  color:rgba(255,255,255,.4);
-  transition:all .3s;
-}
-.footer-social a:hover{
-  border-color:var(--red);
-  background:var(--red);
-  color:#fff;
 }
 
 /* ========================================
-   RESPONSIVE
+   RESPONSIVE BREAKPOINTS
    ======================================== */
-@media(max-width:1024px){
-  .fighters-grid{grid-template-columns:1fr}
-  .fighter-card:first-child{border-right:none;border-bottom:1px solid var(--border-light)}
-  .fighters-center-line{display:none}
-  .news-grid{grid-template-columns:1fr 1fr}
-  .goods-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr}
-  .hero-vertical{display:none}
+
+/* --- Tablet Portrait (768px+) --- */
+@media(min-width:768px){
+  .nav-links{display:flex}
+  .nav-burger{display:none}
+  .mobile-menu{display:none !important}
+
+  .hero-line-left{left:12%}
+  .hero-line-right{right:12%}
+  .hero-title .cross{margin:0 .06em}
+
+  .hero-cta-group{
+    flex-direction:row;
+    align-items:center;
+  }
+  .hero-cta-group .btn{width:auto}
+
+  .footer-top{grid-template-columns:1fr 1fr;gap:var(--space-xl)}
+  .footer-bottom{
+    flex-direction:row;
+    justify-content:space-between;
+    text-align:left;
+  }
 }
-@media(max-width:768px){
-  .nav-links{display:none}
-  .nav-burger{display:flex}
-  .mobile-menu{display:flex}
-  .nav{padding:1rem 1.5rem}
-  .nav.scrolled{padding:.6rem 1.5rem}
-  .container{width:92%}
-  .fighter-card{padding:3rem 1.5rem}
-  .fighter-number{font-size:5rem}
-  .news-grid{grid-template-columns:1fr}
-  .fanclub-tiers{grid-template-columns:1fr}
-  .goods-grid{grid-template-columns:1fr 1fr}
-  .message-inner{grid-template-columns:1fr;gap:3rem}
-  .footer-top{grid-template-columns:1fr;gap:2rem}
-  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-  .stat-grid{gap:1.5rem}
-  .hero-title{letter-spacing:.02em}
-  .next-fight-countdown{gap:1.5rem}
+
+/* --- Tablet Landscape (1024px+) --- */
+@media(min-width:1024px){
+  .hero-vertical{display:block}
+  .hero-line-left{left:15%}
+  .hero-line-right{right:15%}
+
+  .fighters-grid{grid-template-columns:1fr 1fr}
+  .fighters-center-line{display:block}
+  .fighter-card:first-child{
+    border-bottom:none;
+    border-right:1px solid var(--border-light);
+  }
+  .fighter-avatar{max-width:none}
+
+  .footer-top{grid-template-columns:1.2fr 1fr 1fr}
 }
-@media(max-width:480px){
-  .goods-grid{grid-template-columns:1fr}
-  .hero-cta-group{flex-direction:column;align-items:center}
-  .hero-cta-group .btn{width:100%;justify-content:center}
+
+/* --- Laptop (1280px+) --- */
+@media(min-width:1280px){
+  .nav-links{gap:2.2rem}
+  .fighter-card{
+    padding:clamp(3rem,4vw,5rem) clamp(2.5rem,3.5vw,4rem);
+  }
+}
+
+/* --- Large Monitor (1440px+) --- */
+@media(min-width:1440px){
+  :root{
+    --container-pad:4rem;
+  }
+  .container{max-width:1400px}
+  .hero-title{font-size:11rem}
+  .fighter-card{
+    padding:5rem 4.5rem;
+  }
+  .fighters-vs{font-size:14rem}
+}
+
+/* --- Ultra-wide (1920px+) --- */
+@media(min-width:1920px){
+  .container{max-width:1600px}
+  .hero-content{max-width:1400px}
+}
+
+/* --- Small Phone (max 374px) --- */
+@media(max-width:374px){
+  :root{
+    --container-pad:1rem;
+  }
+  .hero-title{font-size:2.4rem}
+  .hero-overtitle{letter-spacing:.15em;font-size:.5rem}
+  .btn{
+    padding:.75rem 1.2rem;
+    font-size:.65rem;
+    letter-spacing:.1em;
+  }
+  .fighter-name-en{font-size:1.5rem}
+  .tier-card{padding:1.5rem 1rem}
+  .sponsor-logo{height:50px;font-size:.55rem}
 }
 </style>
 </head>
@@ -1167,8 +902,6 @@ section{position:relative}
     <a href="#yabuki">矢吹正道</a>
     <a href="#rikiishi">力石政法</a>
     <a href="#fanclub">後援会入会</a>
-    <a href="#news">NEWS</a>
-    <a href="#goods">GOODS</a>
     <a href="#contact">CONTACT</a>
   </div>
   <div class="nav-burger" id="burger">
@@ -1182,8 +915,6 @@ section{position:relative}
   <a href="#yabuki" data-mobile-link>矢吹正道</a>
   <a href="#rikiishi" data-mobile-link>力石政法</a>
   <a href="#fanclub" data-mobile-link>後援会入会</a>
-  <a href="#news" data-mobile-link>NEWS</a>
-  <a href="#goods" data-mobile-link>GOODS</a>
   <a href="#contact" data-mobile-link>CONTACT</a>
 </div>
 
@@ -1202,7 +933,6 @@ section{position:relative}
       <span class="char cross">×</span>
       <span class="char">R</span><span class="char">I</span><span class="char">K</span><span class="char">I</span><span class="char">I</span><span class="char">S</span><span class="char">H</span><span class="char">I</span>
     </h1>
-    <p class="hero-subtitle">── 兄弟の拳が、世界を撃つ ──</p>
     <div class="hero-accent-line"></div>
     <div class="hero-cta-group">
       <a href="#fanclub" class="btn btn-primary">後援会に入会する <span class="btn-arrow">→</span></a>
@@ -1245,30 +975,6 @@ section{position:relative}
   </div>
 </div>
 
-<!-- STATS STRIP -->
-<div class="stat-strip">
-  <div class="container">
-    <div class="stat-grid">
-      <div class="stat-item reveal">
-        <div class="stat-num" data-count="2">0</div>
-        <div class="stat-label">World-Class Fighters</div>
-      </div>
-      <div class="stat-item reveal reveal-delay-1">
-        <div class="stat-num" data-count="47">0</div>
-        <div class="stat-label">Total Wins</div>
-      </div>
-      <div class="stat-item reveal reveal-delay-2">
-        <div class="stat-num" data-count="35">0</div>
-        <div class="stat-label">KO Victories</div>
-      </div>
-      <div class="stat-item reveal reveal-delay-3">
-        <div class="stat-num" data-count="1200">0</div>
-        <div class="stat-label">Fan Club Members</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- FIGHTERS SECTION -->
 <section class="fighters section-padding" id="fighters">
   <div class="fighters-vs">VS</div>
@@ -1287,11 +993,15 @@ section{position:relative}
       <div class="fighter-info">
         <div class="fighter-info-item">
           <span class="fighter-info-label">階級</span>
-          <span>ライトフライ級</span>
+          <span>ライトフライ級 / フライ級</span>
         </div>
         <div class="fighter-info-item">
           <span class="fighter-info-label">身長</span>
-          <span>164cm</span>
+          <span>166cm</span>
+        </div>
+        <div class="fighter-info-item">
+          <span class="fighter-info-label">出身</span>
+          <span>三重県鈴鹿市</span>
         </div>
         <div class="fighter-info-item">
           <span class="fighter-info-label">スタイル</span>
@@ -1299,25 +1009,7 @@ section{position:relative}
         </div>
         <div class="fighter-info-item">
           <span class="fighter-info-label">所属</span>
-          <span>※ジム名を入力</span>
-        </div>
-      </div>
-      <div class="fighter-record">
-        <div class="record-item">
-          <div class="record-num wins" data-count="25">0</div>
-          <div class="record-label">Wins</div>
-        </div>
-        <div class="record-item">
-          <div class="record-num ko" data-count="19">0</div>
-          <div class="record-label">KOs</div>
-        </div>
-        <div class="record-item">
-          <div class="record-num losses" data-count="3">0</div>
-          <div class="record-label">Losses</div>
-        </div>
-        <div class="record-item">
-          <div class="record-num" data-count="1">0</div>
-          <div class="record-label">Draws</div>
+          <span>緑ボクシングジム</span>
         </div>
       </div>
       <a href="#fanclub" class="btn">矢吹選手を応援する <span class="btn-arrow">→</span></a>
@@ -1336,11 +1028,15 @@ section{position:relative}
       <div class="fighter-info">
         <div class="fighter-info-item">
           <span class="fighter-info-label">階級</span>
-          <span>スーパーフライ級</span>
+          <span>スーパーフェザー級</span>
         </div>
         <div class="fighter-info-item">
           <span class="fighter-info-label">身長</span>
-          <span>170cm</span>
+          <span>178cm</span>
+        </div>
+        <div class="fighter-info-item">
+          <span class="fighter-info-label">出身</span>
+          <span>三重県鈴鹿市</span>
         </div>
         <div class="fighter-info-item">
           <span class="fighter-info-label">スタイル</span>
@@ -1348,91 +1044,10 @@ section{position:relative}
         </div>
         <div class="fighter-info-item">
           <span class="fighter-info-label">所属</span>
-          <span>※ジム名を入力</span>
-        </div>
-      </div>
-      <div class="fighter-record">
-        <div class="record-item">
-          <div class="record-num wins" data-count="22">0</div>
-          <div class="record-label">Wins</div>
-        </div>
-        <div class="record-item">
-          <div class="record-num ko" data-count="16">0</div>
-          <div class="record-label">KOs</div>
-        </div>
-        <div class="record-item">
-          <div class="record-num losses" data-count="2">0</div>
-          <div class="record-label">Losses</div>
-        </div>
-        <div class="record-item">
-          <div class="record-num" data-count="0">0</div>
-          <div class="record-label">Draws</div>
+          <span>大橋ボクシングジム</span>
         </div>
       </div>
       <a href="#fanclub" class="btn">力石選手を応援する <span class="btn-arrow">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- NEXT FIGHT -->
-<section class="next-fight section-padding" id="nextfight">
-  <div class="container">
-    <div class="next-fight-inner reveal">
-      <div class="next-fight-label">Next Fight</div>
-      <div class="next-fight-live">UPCOMING</div>
-      <h2 class="next-fight-title">YABUKI<span class="vs">VS</span>CHALLENGER</h2>
-      <p class="next-fight-meta">2026.07.20 ── 東京ドーム ── WBA世界ライトフライ級タイトルマッチ</p>
-      <div class="next-fight-countdown" id="countdown">
-        <div class="countdown-item">
-          <div class="countdown-num" id="countDays">--</div>
-          <div class="countdown-label">Days</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-num" id="countHours">--</div>
-          <div class="countdown-label">Hours</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-num" id="countMins">--</div>
-          <div class="countdown-label">Minutes</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-num" id="countSecs">--</div>
-          <div class="countdown-label">Seconds</div>
-        </div>
-      </div>
-      <a href="#" class="btn btn-primary">チケット情報 <span class="btn-arrow">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- NEWS SECTION -->
-<section class="news section-padding" id="news">
-  <div class="container">
-    <div class="section-label reveal">Latest News</div>
-    <h2 class="section-title reveal">NEWS</h2>
-    <div class="section-divider reveal"></div>
-    <div class="news-grid">
-      <article class="news-card reveal">
-        <span class="news-date">2026.05.20</span>
-        <span class="news-tag">試合情報</span>
-        <h3 class="news-card-title">矢吹正道、世界タイトルマッチ決定 ── 7月東京ドームで激突</h3>
-        <p class="news-card-excerpt">WBA世界ライトフライ級タイトルマッチが正式に決定。矢吹正道が悲願の世界王座奪取に挑む。</p>
-      </article>
-      <article class="news-card reveal reveal-delay-1">
-        <span class="news-date">2026.05.15</span>
-        <span class="news-tag">ニュース</span>
-        <h3 class="news-card-title">力石政法、ランキング2位に浮上 ── 世界挑戦へ視界良好</h3>
-        <p class="news-card-excerpt">WBC世界スーパーフライ級ランキングで2位に浮上。世界タイトル挑戦が現実味を帯びてきた。</p>
-      </article>
-      <article class="news-card reveal reveal-delay-2">
-        <span class="news-date">2026.05.01</span>
-        <span class="news-tag">後援会</span>
-        <h3 class="news-card-title">後援会会員数1,000名突破 ── 記念キャンペーン実施</h3>
-        <p class="news-card-excerpt">皆さまの温かいご支援により後援会会員数が1,000名を突破。感謝を込めた記念キャンペーンを開催。</p>
-      </article>
-    </div>
-    <div class="news-more reveal">
-      <a href="#" class="btn">すべてのニュースを見る <span class="btn-arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -1445,39 +1060,15 @@ section{position:relative}
       <div class="section-label reveal">Join Us</div>
       <h2 class="section-title reveal">後援会入会</h2>
       <div class="section-divider reveal" style="margin-left:auto;margin-right:auto"></div>
-      <p class="fanclub-desc reveal">
-        矢吹正道・力石政法の世界挑戦を、あなたの声援で後押ししてください。<br>
-        後援会会員には限定コンテンツ、試合チケット先行販売、選手との交流イベントなど<br>
-        特別な体験をお届けします。
-      </p>
-      <div class="fanclub-tiers">
-        <div class="tier-card reveal">
-          <div class="tier-name">STANDARD</div>
-          <div class="tier-price">年会費 <strong>¥3,000</strong></div>
-          <ul class="tier-benefits">
-            <li>会員限定ニュースレター</li>
-            <li>オリジナル会員証の発行</li>
-            <li>試合チケット先行販売</li>
-            <li>公式グッズの会員割引</li>
-            <li>応援メッセージの選手届け</li>
-          </ul>
-          <a href="#contact" class="btn" style="width:100%;justify-content:center">入会する <span class="btn-arrow">→</span></a>
-        </div>
-        <div class="tier-card featured reveal reveal-delay-1">
-          <div class="tier-name">PREMIUM</div>
-          <div class="tier-price">年会費 <strong>¥10,000</strong></div>
-          <ul class="tier-benefits">
-            <li>STANDARD特典すべて</li>
-            <li>選手サイン入りグッズ進呈</li>
-            <li>ファンミーティング参加権</li>
-            <li>練習見学会への招待</li>
-            <li>限定フォトブック（年1回）</li>
-            <li>試合リングサイド席抽選権</li>
-          </ul>
-          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">入会する <span class="btn-arrow">→</span></a>
+      <div class="fanclub-single-card reveal" style="margin-top:var(--space-l);margin-bottom:var(--space-l)">
+        <div class="tier-card" style="max-width:480px;margin:0 auto">
+          <div class="tier-name">後援会員</div>
+          <div class="tier-price">会費：<strong>要検討</strong></div>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-l)">内容：要検討</p>
+          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">入会について問い合わせる <span class="btn-arrow">→</span></a>
         </div>
       </div>
-      <p class="reveal" style="font-size:.72rem;color:var(--text-tertiary)">
+      <p class="reveal" style="font-size:var(--text-xs);color:var(--text-tertiary)">
         ※ 入会手続きはお問い合わせフォームより受付しております。<br>
         ※ 矢吹選手・力石選手それぞれの後援会に個別入会も可能です。
       </p>
@@ -1485,101 +1076,39 @@ section{position:relative}
   </div>
 </section>
 
-<!-- GOODS SECTION -->
-<section class="goods section-padding" id="goods">
-  <div class="container">
-    <div class="section-label reveal">Official Merchandise</div>
-    <h2 class="section-title reveal">GOODS</h2>
-    <div class="section-divider reveal"></div>
-    <div class="goods-grid">
-      <div class="goods-card reveal">
-        <div class="goods-img"><span class="goods-img-text">TEE</span></div>
-        <div class="goods-info">
-          <p class="goods-name">YABUKI × RIKIISHI オフィシャルTシャツ</p>
-          <p class="goods-price">¥4,500</p>
-        </div>
-      </div>
-      <div class="goods-card reveal reveal-delay-1">
-        <div class="goods-img"><span class="goods-img-text">TOWEL</span></div>
-        <div class="goods-info">
-          <p class="goods-name">応援タオル ─ FIGHT NIGHT</p>
-          <p class="goods-price">¥2,500</p>
-        </div>
-      </div>
-      <div class="goods-card reveal reveal-delay-2">
-        <div class="goods-img"><span class="goods-img-text">CAP</span></div>
-        <div class="goods-info">
-          <p class="goods-name">ロゴキャップ ─ BLACK / RED</p>
-          <p class="goods-price">¥3,800</p>
-        </div>
-      </div>
-      <div class="goods-card reveal reveal-delay-3">
-        <div class="goods-img"><span class="goods-img-text">GLOVE</span></div>
-        <div class="goods-info">
-          <p class="goods-name">レプリカグローブ（サイン入り）</p>
-          <p class="goods-price">¥15,000</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- MESSAGE SECTION -->
 <section class="message section-padding" id="contact">
-  <div class="container">
+  <div class="container" style="text-align:center">
     <div class="section-label reveal">Send Your Voice</div>
     <h2 class="section-title reveal">応援メッセージ</h2>
-    <div class="section-divider reveal"></div>
-    <div class="message-inner" style="margin-top:3rem">
-      <div class="reveal">
-        <form class="message-form" id="messageForm">
-          <div>
-            <label for="msgName">お名前</label>
-            <input type="text" id="msgName" placeholder="例：山田太郎" required>
-          </div>
-          <div>
-            <label for="msgTarget">応援する選手</label>
-            <select id="msgTarget" required>
-              <option value="">選択してください</option>
-              <option value="yabuki">矢吹正道</option>
-              <option value="rikiishi">力石政法</option>
-              <option value="both">兄弟両方</option>
-            </select>
-          </div>
-          <div>
-            <label for="msgEmail">メールアドレス</label>
-            <input type="email" id="msgEmail" placeholder="example@email.com" required>
-          </div>
-          <div>
-            <label for="msgBody">メッセージ</label>
-            <textarea id="msgBody" placeholder="応援メッセージをお書きください" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="align-self:flex-start">
-            メッセージを送る <span class="btn-arrow">→</span>
-          </button>
-        </form>
-      </div>
-      <div class="reveal reveal-delay-1">
-        <h3 style="font-family:var(--font-heading);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:1.5rem">Recent Messages</h3>
-        <div class="messages-list">
-          <div class="msg-item">
-            <div class="msg-author">田中 K. ── 矢吹選手へ</div>
-            <p class="msg-text">世界戦、絶対に勝ってください！ずっと応援しています。東京ドームで声を枯らして応援します！</p>
-          </div>
-          <div class="msg-item">
-            <div class="msg-author">佐藤 M. ── 力石選手へ</div>
-            <p class="msg-text">いつもストイックな姿に感動しています。次の試合も力石選手らしい戦いを期待しています。</p>
-          </div>
-          <div class="msg-item">
-            <div class="msg-author">鈴木 T. ── 兄弟両方へ</div>
-            <p class="msg-text">兄弟で世界チャンピオン、その日が来ることを信じています。最高の兄弟ボクサーです！</p>
-          </div>
-          <div class="msg-item">
-            <div class="msg-author">高橋 Y. ── 矢吹選手へ</div>
-            <p class="msg-text">地元の誇りです。左ストレートで世界を獲ってください！</p>
-          </div>
+    <div class="section-divider reveal" style="margin-left:auto;margin-right:auto"></div>
+    <div class="message-inner reveal">
+      <form class="message-form" id="messageForm">
+        <div>
+          <label for="msgName">お名前</label>
+          <input type="text" id="msgName" placeholder="例：山田太郎" required autocomplete="name">
         </div>
-      </div>
+        <div>
+          <label for="msgTarget">応援する選手</label>
+          <select id="msgTarget" required>
+            <option value="">選択してください</option>
+            <option value="yabuki">矢吹正道</option>
+            <option value="rikiishi">力石政法</option>
+            <option value="both">兄弟両方</option>
+          </select>
+        </div>
+        <div>
+          <label for="msgEmail">メールアドレス</label>
+          <input type="email" id="msgEmail" placeholder="example@email.com" required autocomplete="email">
+        </div>
+        <div>
+          <label for="msgBody">メッセージ</label>
+          <textarea id="msgBody" placeholder="応援メッセージをお書きください" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:center">
+          メッセージを送る <span class="btn-arrow">→</span>
+        </button>
+      </form>
     </div>
   </div>
 </section>
@@ -1614,7 +1143,7 @@ section{position:relative}
       <div>
         <div class="footer-brand">YABUKI <span>×</span> RIKIISHI</div>
         <p class="footer-desc">
-          世界級ボクサー矢吹正道・力石政法兄弟の<br>
+          矢吹正道・力石政法兄弟の<br>
           後援会公式サイト。二人の拳に、あなたの声援を。
         </p>
       </div>
@@ -1625,23 +1154,14 @@ section{position:relative}
           <li><a href="#yabuki">矢吹正道</a></li>
           <li><a href="#rikiishi">力石政法</a></li>
           <li><a href="#fanclub">後援会入会</a></li>
-          <li><a href="#news">NEWS</a></li>
-          <li><a href="#goods">GOODS</a></li>
         </ul>
       </div>
       <div>
         <h4 class="footer-heading">Contact</h4>
         <ul class="footer-links">
           <li><a href="#contact">お問い合わせフォーム</a></li>
-          <li><a href="mailto:info@yabuki-rikiishi.com">info@yabuki-rikiishi.com</a></li>
+          <li>※メールアドレスを入れる予定</li>
         </ul>
-        <h4 class="footer-heading" style="margin-top:2rem">Follow Us</h4>
-        <div class="footer-social">
-          <a href="#" aria-label="X (Twitter)">X</a>
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="YouTube">YT</a>
-          <a href="#" aria-label="TikTok">TK</a>
-        </div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1670,11 +1190,18 @@ section{position:relative}
 
   // --- Navigation scroll ---
   var nav = document.getElementById('nav');
+  var scrollTicking = false;
   window.addEventListener('scroll', function() {
-    if (window.scrollY > 60) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
+    if (!scrollTicking) {
+      requestAnimationFrame(function() {
+        if (window.scrollY > 60) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+        scrollTicking = false;
+      });
+      scrollTicking = true;
     }
   }, { passive: true });
 
@@ -1694,6 +1221,16 @@ section{position:relative}
     });
   });
 
+  // Close mobile menu on resize to desktop
+  var mql = window.matchMedia('(min-width: 768px)');
+  mql.addEventListener('change', function(e) {
+    if (e.matches && mobileMenu.classList.contains('open')) {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
   // --- Scroll reveal (IntersectionObserver) ---
   var reveals = document.querySelectorAll('.reveal, .reveal-left');
   var revealObserver = new IntersectionObserver(function(entries) {
@@ -1703,127 +1240,61 @@ section{position:relative}
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(function(el) { revealObserver.observe(el); });
-
-  // --- Counter animation ---
-  var counters = document.querySelectorAll('[data-count]');
-  var counterObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var el = entry.target;
-        var target = parseInt(el.getAttribute('data-count'), 10);
-        animateCount(el, target);
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(function(el) { counterObserver.observe(el); });
-
-  function animateCount(el, target) {
-    var duration = 2000;
-    var startTime = null;
-    function step(ts) {
-      if (!startTime) startTime = ts;
-      var p = Math.min((ts - startTime) / duration, 1);
-      var ease = 1 - Math.pow(1 - p, 4); // ease-out quart
-      el.textContent = Math.floor(ease * target);
-      if (p < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.textContent = target;
-      }
-    }
-    requestAnimationFrame(step);
-  }
 
   // --- Active nav link on scroll ---
   var sections = document.querySelectorAll('section[id]');
   var navLinks = document.querySelectorAll('.nav-links a');
+  var navTicking = false;
   window.addEventListener('scroll', function() {
-    var scrollPos = window.scrollY + 200;
-    sections.forEach(function(section) {
-      if (section.offsetTop <= scrollPos && section.offsetTop + section.offsetHeight > scrollPos) {
-        var id = section.getAttribute('id');
-        navLinks.forEach(function(a) {
-          a.classList.remove('active');
-          var href = a.getAttribute('href');
-          if (href === '#' + id || (id === 'top' && href === '#')) {
-            a.classList.add('active');
+    if (!navTicking) {
+      requestAnimationFrame(function() {
+        var scrollPos = window.scrollY + 200;
+        sections.forEach(function(section) {
+          if (section.offsetTop <= scrollPos && section.offsetTop + section.offsetHeight > scrollPos) {
+            var id = section.getAttribute('id');
+            navLinks.forEach(function(a) {
+              a.classList.remove('active');
+              var href = a.getAttribute('href');
+              if (href === '#' + id || (id === 'top' && href === '#')) {
+                a.classList.add('active');
+              }
+            });
           }
         });
-      }
-    });
-  }, { passive: true });
-
-  // --- Countdown timer ---
-  var fightDate = new Date('2026-07-20T18:00:00+09:00').getTime();
-  function updateCountdown() {
-    var now = Date.now();
-    var diff = fightDate - now;
-    if (diff <= 0) {
-      document.getElementById('countDays').textContent = '0';
-      document.getElementById('countHours').textContent = '0';
-      document.getElementById('countMins').textContent = '0';
-      document.getElementById('countSecs').textContent = '0';
-      return;
+        navTicking = false;
+      });
+      navTicking = true;
     }
-    var d = Math.floor(diff / 86400000);
-    var h = Math.floor((diff % 86400000) / 3600000);
-    var m = Math.floor((diff % 3600000) / 60000);
-    var s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('countDays').textContent = d;
-    document.getElementById('countHours').textContent = h < 10 ? '0' + h : h;
-    document.getElementById('countMins').textContent = m < 10 ? '0' + m : m;
-    document.getElementById('countSecs').textContent = s < 10 ? '0' + s : s;
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  }, { passive: true });
 
   // --- Form submission (demo) ---
   var form = document.getElementById('messageForm');
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    var name = document.getElementById('msgName').value;
-    var target = document.getElementById('msgTarget');
-    var targetText = target.options[target.selectedIndex].text;
-    var msg = document.getElementById('msgBody').value;
-
-    var list = document.querySelector('.messages-list');
-    var item = document.createElement('div');
-    item.className = 'msg-item';
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(10px)';
-    item.innerHTML =
-      '<div class="msg-author">' + escapeHtml(name) + ' ── ' + escapeHtml(targetText) + 'へ</div>' +
-      '<p class="msg-text">' + escapeHtml(msg) + '</p>';
-    list.insertBefore(item, list.firstChild);
-
-    requestAnimationFrame(function() {
-      item.style.transition = 'opacity .4s, transform .4s';
-      item.style.opacity = '1';
-      item.style.transform = 'translateY(0)';
-    });
-
     form.reset();
     alert('応援メッセージありがとうございます！');
   });
 
-  function escapeHtml(str) {
-    var d = document.createElement('div');
-    d.appendChild(document.createTextNode(str));
-    return d.innerHTML;
-  }
-
-  // --- Hero parallax ---
+  // --- Hero parallax (desktop only) ---
   var heroContent = document.querySelector('.hero-content');
-  window.addEventListener('scroll', function() {
-    var y = window.scrollY;
-    if (y < window.innerHeight) {
-      heroContent.style.transform = 'translateY(' + (y * 0.18) + 'px)';
-      heroContent.style.opacity = 1 - (y / window.innerHeight) * 0.7;
-    }
-  }, { passive: true });
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    var parallaxTicking = false;
+    window.addEventListener('scroll', function() {
+      if (!parallaxTicking) {
+        requestAnimationFrame(function() {
+          var y = window.scrollY;
+          if (y < window.innerHeight) {
+            heroContent.style.transform = 'translateY(' + (y * 0.18) + 'px)';
+            heroContent.style.opacity = 1 - (y / window.innerHeight) * 0.7;
+          }
+          parallaxTicking = false;
+        });
+        parallaxTicking = true;
+      }
+    }, { passive: true });
+  }
 
 })();
 </script>
