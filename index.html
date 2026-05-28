@@ -575,11 +575,11 @@ section{position:relative}
   overflow:hidden;
   display:flex;align-items:center;justify-content:center;
 }
-.fighter-avatar-placeholder{
-  font-family:var(--font-display);
-  font-size:clamp(2.5rem,6vw,6rem);
-  color:rgba(0,0,0,.04);
-  letter-spacing:.15em;
+.fighter-avatar-img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center top;
+  position:relative;z-index:1;
 }
 .fighter-avatar::after{
   content:'';position:absolute;inset:0;
@@ -985,7 +985,7 @@ section{position:relative}
       <div class="fighter-number">01</div>
       <div class="section-label">Fighter 01</div>
       <div class="fighter-avatar">
-        <span class="fighter-avatar-placeholder">YABUKI</span>
+        <img src="yabuki.png" alt="矢吹正道" class="fighter-avatar-img">
       </div>
       <h2 class="fighter-name-en">MASAMICHI YABUKI</h2>
       <p class="fighter-name-ja">矢吹 正道</p>
@@ -1020,7 +1020,7 @@ section{position:relative}
       <div class="fighter-number">02</div>
       <div class="section-label">Fighter 02</div>
       <div class="fighter-avatar">
-        <span class="fighter-avatar-placeholder">RIKIISHI</span>
+        <img src="rikiishi.jpg" alt="力石政法" class="fighter-avatar-img">
       </div>
       <h2 class="fighter-name-en">MASANORI RIKIISHI</h2>
       <p class="fighter-name-ja">力石 政法</p>
