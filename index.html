@@ -785,6 +785,12 @@ section{position:relative}
   color:rgba(255,255,255,.35);
   padding:.25rem 0;
 }
+.footer-social{display:flex;gap:var(--space-s);margin-top:var(--space-s)}
+.footer-social a{
+  color:rgba(255,255,255,.5);
+  transition:color .3s;
+}
+.footer-social a:hover{color:var(--red)}
 .footer-bottom{
   display:flex;
   flex-direction:column;
@@ -904,7 +910,7 @@ section{position:relative}
     <a href="#yabuki">矢吹正道</a>
     <a href="#rikiishi">力石政法</a>
     <a href="#fanclub">後援会入会</a>
-    <a href="#contact">CONTACT</a>
+    <a href="#contact">お問い合わせ</a>
   </div>
   <div class="nav-burger" id="burger">
     <span></span><span></span><span></span>
@@ -917,7 +923,7 @@ section{position:relative}
   <a href="#yabuki" data-mobile-link>矢吹正道</a>
   <a href="#rikiishi" data-mobile-link>力石政法</a>
   <a href="#fanclub" data-mobile-link>後援会入会</a>
-  <a href="#contact" data-mobile-link>CONTACT</a>
+  <a href="#contact" data-mobile-link>お問い合わせ</a>
 </div>
 
 <!-- HERO -->
@@ -937,7 +943,7 @@ section{position:relative}
     </h1>
     <div class="hero-accent-line"></div>
     <div class="hero-cta-group">
-      <a href="#fanclub" class="btn btn-primary">後援会に入会する <span class="btn-arrow">→</span></a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScEOKPE29WrwX7h6-YHHp6GfNa_ADHrF1V5TqnfmSFEt2PBIw/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-primary">後援会に入会する <span class="btn-arrow">→</span></a>
       <a href="#yabuki" class="btn">選手を知る <span class="btn-arrow">→</span></a>
     </div>
   </div>
@@ -1000,7 +1006,7 @@ section{position:relative}
           <span>緑ボクシングジム</span>
         </div>
       </div>
-      <a href="#fanclub" class="btn">矢吹選手を応援する <span class="btn-arrow">→</span></a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScEOKPE29WrwX7h6-YHHp6GfNa_ADHrF1V5TqnfmSFEt2PBIw/viewform" target="_blank" rel="noopener noreferrer" class="btn">矢吹選手を応援する <span class="btn-arrow">→</span></a>
     </div>
 
     <!-- RIKIISHI -->
@@ -1035,7 +1041,7 @@ section{position:relative}
           <span>大橋ボクシングジム</span>
         </div>
       </div>
-      <a href="#fanclub" class="btn">力石選手を応援する <span class="btn-arrow">→</span></a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScEOKPE29WrwX7h6-YHHp6GfNa_ADHrF1V5TqnfmSFEt2PBIw/viewform" target="_blank" rel="noopener noreferrer" class="btn">力石選手を応援する <span class="btn-arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -1051,15 +1057,11 @@ section{position:relative}
       <div class="fanclub-single-card reveal" style="margin-top:var(--space-l);margin-bottom:var(--space-l)">
         <div class="tier-card" style="max-width:480px;margin:0 auto">
           <div class="tier-name">後援会員</div>
-          <div class="tier-price">会費：<strong>要検討</strong></div>
-          <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-l)">内容：要検討</p>
-          <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">入会について問い合わせる <span class="btn-arrow">→</span></a>
+          <div class="tier-price">年会費：<strong>1口 10,000円</strong></div>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-l)">世界最強の兄弟を応援していきましょう！<br>様々な特典までご用意させて頂いております。</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScEOKPE29WrwX7h6-YHHp6GfNa_ADHrF1V5TqnfmSFEt2PBIw/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;justify-content:center">申し込みはこちら <span class="btn-arrow">→</span></a>
         </div>
       </div>
-      <p class="reveal" style="font-size:var(--text-xs);color:var(--text-tertiary)">
-        ※ 入会手続きはお問い合わせフォームより受付しております。<br>
-        ※ 矢吹選手・力石選手それぞれの後援会に個別入会も可能です。
-      </p>
     </div>
   </div>
 </section>
@@ -1067,36 +1069,11 @@ section{position:relative}
 <!-- MESSAGE SECTION -->
 <section class="message section-padding" id="contact">
   <div class="container" style="text-align:center">
-    <div class="section-label reveal">Send Your Voice</div>
-    <h2 class="section-title reveal">応援メッセージ</h2>
+    <div class="section-label reveal">Contact</div>
+    <h2 class="section-title reveal">お問い合わせ</h2>
     <div class="section-divider reveal" style="margin-left:auto;margin-right:auto"></div>
-    <div class="message-inner reveal">
-      <form class="message-form" id="messageForm">
-        <div>
-          <label for="msgName">お名前</label>
-          <input type="text" id="msgName" placeholder="例：山田太郎" required autocomplete="name">
-        </div>
-        <div>
-          <label for="msgTarget">応援する選手</label>
-          <select id="msgTarget" required>
-            <option value="">選択してください</option>
-            <option value="yabuki">矢吹正道</option>
-            <option value="rikiishi">力石政法</option>
-            <option value="both">兄弟両方</option>
-          </select>
-        </div>
-        <div>
-          <label for="msgEmail">メールアドレス</label>
-          <input type="email" id="msgEmail" placeholder="example@email.com" required autocomplete="email">
-        </div>
-        <div>
-          <label for="msgBody">メッセージ</label>
-          <textarea id="msgBody" placeholder="応援メッセージをお書きください" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="align-self:center">
-          メッセージを送る <span class="btn-arrow">→</span>
-        </button>
-      </form>
+    <div class="message-inner reveal" style="text-align:center">
+      <a href="mailto:yabuki.rikiishi.koenkai@gmail.com" class="btn btn-primary">メールでお問い合わせ <span class="btn-arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -1134,6 +1111,11 @@ section{position:relative}
           矢吹正道・力石政法兄弟の<br>
           後援会公式サイト。二人の拳に、あなたの声援を。
         </p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/yabuki_rikiishi/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.97.24 2.43.403a4.08 4.08 0 0 1 1.523.99 4.08 4.08 0 0 1 .99 1.524c.163.46.349 1.26.403 2.43.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.85c-.054 1.17-.24 1.97-.403 2.43a4.08 4.08 0 0 1-.99 1.523 4.08 4.08 0 0 1-1.524.99c-.46.163-1.26.349-2.43.403-1.265.058-1.645.07-4.849.07s-3.584-.012-4.85-.07c-1.17-.054-1.97-.24-2.43-.403a4.08 4.08 0 0 1-1.523-.99 4.08 4.08 0 0 1-.99-1.524c-.163-.46-.349-1.26-.403-2.43C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.054-1.17.24-1.97.403-2.43a4.08 4.08 0 0 1 .99-1.523A4.08 4.08 0 0 1 5.15 2.636c.46-.163 1.26-.349 2.43-.403C8.845 2.175 9.225 2.163 12 2.163zm0-2.163C8.741 0 8.333.014 7.053.072 5.775.131 4.902.333 4.14.63a6.21 6.21 0 0 0-2.244 1.46A6.21 6.21 0 0 0 .436 4.334C.139 5.096-.063 5.969.004 7.247.066 8.527.052 8.935.052 12.194s.014 3.668.072 4.948c.059 1.278.261 2.15.558 2.913a6.21 6.21 0 0 0 1.46 2.244 6.21 6.21 0 0 0 2.244 1.46c.762.297 1.636.499 2.914.558C8.527 24.378 8.935 24.392 12.194 24.392s3.668-.014 4.948-.072c1.278-.059 2.15-.261 2.913-.558a6.21 6.21 0 0 0 2.244-1.46 6.21 6.21 0 0 0 1.46-2.244c.297-.762.499-1.636.558-2.914.058-1.28.072-1.688.072-4.948s-.014-3.668-.072-4.948c-.059-1.278-.261-2.15-.558-2.913a6.21 6.21 0 0 0-1.46-2.244A6.21 6.21 0 0 0 20.055.436C19.293.139 18.42-.063 17.142.004 15.862.066 15.454.052 12.194.052L12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-10.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
+        </div>
       </div>
       <div>
         <h4 class="footer-heading">Navigation</h4>
@@ -1145,10 +1127,10 @@ section{position:relative}
         </ul>
       </div>
       <div>
-        <h4 class="footer-heading">Contact</h4>
+        <h4 class="footer-heading">お問い合わせ</h4>
         <ul class="footer-links">
-          <li><a href="#contact">お問い合わせフォーム</a></li>
-          <li>※メールアドレスを入れる予定</li>
+
+          <li><a href="mailto:yabuki.rikiishi.koenkai@gmail.com">yabuki.rikiishi.koenkai@gmail.com</a></li>
         </ul>
       </div>
     </div>

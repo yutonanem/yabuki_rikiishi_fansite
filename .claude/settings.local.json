@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebFetch(domain:www.nike.com)",
+      "WebFetch(domain:www.ufc.com)",
+      "WebFetch(domain:jp.ufc.com)",
+      "WebFetch(domain:www.awwwards.com)",
+      "WebFetch(domain:www.accio.com)",
+      "WebFetch(domain:colorhero.io)",
+      "WebFetch(domain:www.saasframe.io)",
+      "WebFetch(domain:uicookies.com)"
     ]
   }
 }
