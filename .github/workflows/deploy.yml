@@ -1,0 +1,21 @@
+name: Deploy to Sakura Server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via rsync over SSH
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avz --delete --exclude='.git' --exclude='.github' --exclude='.claude'
+          path: ./
+          remote_path: ~/www/yabuki-rikiishi-koenkai/
+          remote_host: www5154.sakura.ne.jp
+          remote_user: fulcus-admin
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
